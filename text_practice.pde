@@ -1,8 +1,8 @@
-AEC aec;
+/*AEC aec;
 PFont font1;
 
 // some parameters that turned out to work best for the font we're using
-float FONT_SIZE = 6;
+float FONT_SIZE = 3;
 float FONT_OFFSET_Y = 0.12;
 float FONT_SCALE_X = 2.669;
 float FONT_SCALE_Y = 2.67;
@@ -54,11 +54,11 @@ void draw() {
   //fill(132,186,242);
   fill(80,179,227);
 
-  person();
-  shape(person, mouseX/aec.getScaleX(), mouseY/aec.getScaleY());
+  //person();
+  //hape(person, mouseX/aec.getScaleX(), mouseY/aec.getScaleY());
   // determines the speed (number of frames between text movements)
   int frameInterval = 3;
-  /*
+  
   //fill(229,19,19);
   //fill(36,188,27);
   fill(255);
@@ -81,7 +81,7 @@ void draw() {
     displayTextV(xPos, max(minPos, maxPos - (frameCount%loopFrames) / frameInterval));
   }
   
-  */
+  
   aec.endDraw();
   aec.drawSides();
 }
@@ -143,3 +143,4 @@ void displayTextV(int x, int y) {
 void keyPressed() {
   aec.keyPressed(key);
 }
+*/

@@ -1,24 +1,65 @@
-PShape person;
-color personC = color(229,19,19);
-PShape head, body, arms, legR, legL;
-void person() {
-  person = createShape(GROUP);
-  head = createShape(RECT,0,0,1,1);
-  //head.setFill(personC);
-  head.noStroke();
+AEC aec;
+
+int stage=1;
+int timer=0;
+int walk = 1;
+
+boolean pastStairs = false;
+
+void setup() {
+  size(1200, 400);
+  aec = new AEC();
+  aec.init();
+
+  frameRate(10);
+}
+
+void draw() {
+  aec.beginDraw();
+  background(0, 0, 0);
+
+  switch (stage) {
+    // fence and vines, blue background
+  case 1:
+    stage1Vines();
+    break;
+  case 2:
+    frameRate(5);
+    fill(252,30,10);
+    if (walk>3) {
+      walk=1;
+    }
+    createPerson(walk);
+    shape(person, timer, 10);
+    if (timer>45) {
+      timer=0;
+    } else {
+      timer+=1;
+    }
+    walk+=1;
+    break;
+  case 3:
+    //fill(145, 216, 247);
+    break;
+    // leaflets dropping, green background
+  case 4:
+    fill(36, 188, 27);
+    break;
+    // book, red background
+  case 5:
+    fill(229, 19, 19);
+    break;
+  default:
+    fill(0);
+    break;
+  }
+  //rect(0,0,1200,400);
   
-  body = createShape(RECT,0,1,1,4);
-  //body.setFill(personC);
-  body.noStroke();
   
-  arms = createShape(RECT, -1,1,3,1);
-  
-  legR = createShape(RECT, -1,5,1,2);
-  legL = createShape(RECT, 1,5,1,2);
-  
-  person.addChild(head);
-  person.addChild(body);
-  person.addChild(arms);
-  person.addChild(legR);
-  person.addChild(legL);
+  aec.endDraw();
+  aec.drawSides();
+}
+
+void keyPressed() {
+  aec.keyPressed(key);
 }

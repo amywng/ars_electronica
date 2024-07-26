@@ -33,7 +33,7 @@ class Flower {
     translate(x, y);
 
     float petalSize = w / 5; // Adjust petal size relative to flower width
-    float centerSize = w / 8; // Adjust center size relative to flower width
+    float centerSize = w / 4; // Adjust center size relative to flower width
 
     fill(petalColor);
     ellipse(-w/2 + petalSize, -w/2 + petalSize, petalSize, petalSize);
@@ -137,14 +137,8 @@ class Ball {
     int circleH = (int)random(0,4); ; 
     int circleW = (int) random(0,4); 
     
-    
     noStroke(); 
-    fill(255);
+    fill(245,229,173);
     rect(x, y, circleH, circleW);
-    //fill(255);
-    //rect(x-w,y,w,w);
-    //rect(x+w,y+w,w,w);
-    //rect(x-w,y+w,w,w);
-    //rect(x,y+w,w,w);
   }
 }

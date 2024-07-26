@@ -21,9 +21,16 @@ void setup() {
   size(1200, 400);
   aec = new AEC();
   aec.init();
-  balls[0] = new Ball(50,0,10);
-
+  balls[0] = new Ball(50, 0, 10);
+  createBubbles();
   frameRate(5);
+  leafPosns.add(new Posn(5,25));
+  leafPosns.add(new Posn(13,27));
+  leafPosns.add(new Posn(18,15));
+  leafPosns.add(new Posn(40,15));
+  leafPosns.add(new Posn(25,8));
+  leafPosns.add(new Posn(36,7));
+  leafPosns.add(new Posn(23,20));
 }
 
 void draw() {
@@ -33,22 +40,36 @@ void draw() {
   switch (stage) {
     // fence and vines, no background
   case 1:
-    if (loop==1) {
-      stage1();
-    } else {
+    stage1();
+    if (s1Done) {
+      stage2();
+      if (s2Done) {
+        if (timerS3>32 && timerS3<70) {
+          stage=3;
+        } else {
+          for (int i = 0; i < flowers.size(); i++) {
+            flowers.get(i).applyGravity();
+            flowers.get(i).move();
+            flowers.get(i).display();
+          }
+        }
+        timerS3+=1;
+      }
     }
     break;
-  // flowers grow/pop up, no background
+    // flowers grow/pop up, no background
   case 2:
+    
     break;
-  // flowers fall
+    // flowers fall, leaflets drop
   case 3:
     stage3();
     break;
-  // leaflets dropping, green background
+    // leaflets dropping, green background
   case 4:
+    stage4();
     break;
-  // book, red background
+    // book, red background
   case 5:
     if (bookScale=="large") {
       bookAnimation(bookScale);
@@ -76,16 +97,16 @@ void draw() {
     }
     scale*=2;
     break;
-  // people walking
+    // people walking
   case 6:
     frameRate(2);
     if (timer < 4 && !s6Done) {
       if (timer==3) {
         fill(224, 199, 158);
         createPerson(walk1, 1);
-        fill(75, 51, 29);
+        fill(209, 135, 70);
         createPerson(1, 2);
-        fill(142, 99, 59);
+        fill(227,183,144);
         createPerson(walk3, 3);
         shape(person1, 27, 8);
         shape(person2, 33, 8);
@@ -101,9 +122,9 @@ void draw() {
         }
         fill(224, 199, 158);
         createPerson(walk1, 1);
-        fill(75, 51, 29);
+        fill(209, 135, 70);
         createPerson(1, 2);
-        fill(142, 99, 59);
+        fill(227,183,144);
         createPerson(walk3, 3);
         shape(person1, timer+25, p1Y);
         shape(person2, 33, 8);
@@ -119,7 +140,7 @@ void draw() {
         walk1+=1;
         walk3+=1;
       }
-    } else if (s6Done && timerS6<30) {
+    } else if (s6Done && timerS6<40) {
       timerS6+=1;
       frameRate(5);
       if (walk1>3) {
@@ -133,9 +154,9 @@ void draw() {
       }
       fill(224, 199, 158);
       createPerson(walk1, 1);
-      fill(75, 51, 29);
+      fill(209, 135, 70);
       createPerson(walk2, 2);
-      fill(142, 99, 59);
+      fill(227,183,144);
       createPerson(walk3, 3);
       shape(person1, timer+23, 8);
       shape(person2, timer+29, 8);
@@ -152,11 +173,39 @@ void draw() {
       stage = 7;
     }
     break;
-  // speech bubbles
+    // speech bubbles
   case 7:
-    createBubbles();
-    shape(topBubble);
-    shape(bottomBubble);
+    scale(0.1);
+    if (timerS7 < 20) {
+      stage7(true);
+    } else if (timerS7 >=20 && timerS7<30) {
+      stage7(false);
+    } else {
+      stage=1;
+      loop+=1;
+      leftVines.clear();
+      rightVines.clear();
+      pastStairsR = false;
+      pastStairsL = false;
+      s1Done = false;
+      s2Done = false;
+      s3Done = false;
+      s4Done = false;
+      s5Done = false;
+      s6Done = false;
+      s7Done = false;
+      frameRate(5);
+      timerS2 = 0;
+      timerS3 = 0;
+      timerS4 = 0;
+      timerS7 = 0;
+      flowers.clear();
+      leaves.clear();
+      leafletW=3;
+      leafletH=3;
+    }
+    timerS7+=1;
+    break;
   }
 
   aec.endDraw();

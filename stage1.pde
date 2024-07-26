@@ -4,7 +4,7 @@ boolean pastStairsR = false;
 boolean pastStairsL = false;
 
 void stage1() {
-  ground();
+  //ground();
   rightVine();
   fence();
   leftVine();
@@ -26,14 +26,16 @@ void leftVine() {
     orientation = (int)random(1,3)*2;
   }
   
+  if (prev.posn.y-prev.vineHeight<0) {
+    s1Done = true;
+  }
+  
   switch (orientation) {
   case 1:
   case 3:
     if (prev.posn.x+prev.vineWidth>80) {
       prev.posn.x = 0-prev.vineWidth;
       pastStairsL = true;
-    } else if (prev.posn.y-prev.vineHeight<0) {
-      //stage = 2;
     } else {
       addVine(new Posn(prev.posn.x+prev.vineWidth, prev.posn.y), orientation, vineWidth, vineHeight, true);
     }

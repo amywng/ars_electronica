@@ -1,4 +1,4 @@
-sclass VineSegment {
+class VineSegment {
   int orientation;
   Posn posn;
   int vineWidth;
@@ -13,7 +13,7 @@ sclass VineSegment {
   
   void display(boolean left) {
     noFill();
-    strokeWeight(.5);
+    strokeWeight(.8);
     if (left) {
       //stroke(101,245,0);
       stroke(0,144,18);

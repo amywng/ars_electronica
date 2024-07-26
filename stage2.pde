@@ -1,31 +1,35 @@
 ArrayList<Flower> flowers = new ArrayList<Flower>();
 ArrayList<Leaf> leaves = new ArrayList<Leaf>();
+ArrayList<Posn> leafPosns = new ArrayList<Posn>();
+int timerS2=0;
 
 void stage2() {
-  frameRate(25);
-  flowers.add(new Flower(500, 0, 160));
+  timerS2+=1;
   noStroke();
-  strokeWeight(1);
-
-  //Display flowers
-  for (int i = 0; i < flowers.size(); i++) {
-    //flowers[i].applyGravity();
-    flowers.get(i).move();
-    flowers.get(i).display();
+  if (timerS2<8) {
+    for (int i=0;i<leafPosns.size();i+=1) {
+      leaves.add(new Leaf(leafPosns.get(i).x, leafPosns.get(i).y, 5));
+    }
+    for (int i = 0; i < leaves.size(); i++) {
+      leaves.get(i).display();
+    }
+  } else if (timerS2>=8 && timerS2<14) {
+    leaves.clear();
+    for (int i=0;i<leafPosns.size();i+=1) {
+      leaves.add(new Leaf(leafPosns.get(i).x, leafPosns.get(i).y, 7));
+    }
+    for (int i = 0; i < leaves.size(); i++) {
+      leaves.get(i).display();
+    }
+  } else if (timerS2>=14 && timerS2<30) {
+    for (int i=0;i<leafPosns.size();i+=1) {
+      flowers.add(new Flower(leafPosns.get(i).x, leafPosns.get(i).y, 8));
+    }
+    for (int i = 0; i < flowers.size(); i++) {
+      flowers.get(i).display();
+    }
+  } else {
+    s2Done=true;
   }
-
-  // Display leaves
-  for (int i = 0; i < leaves.size(); i++) {
-    leaves.get(i).display();
-  }
+  
 }
-
-/*void mousePressed() {
-  //Create a new Flower and add it to the flower array
-  //Flower f = new Flower(mouseX/aec.getScaleX(), mouseY/aec.getScaleY(),16);
-  //flowers = (Flower[]) append(flowers, f);
-
-  // Create a new Leaf and add it to the leaves array
-  Leaf l = new Leaf(mouseX / aec.getScaleX(), mouseY / aec.getScaleY(), 5);
-  leaves = (Leaf[]) append(leaves, l);
-}*/

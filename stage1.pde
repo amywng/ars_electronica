@@ -4,7 +4,7 @@ ArrayList<VineSegment> rightVines = new ArrayList<>();
 void stage1Vines() {
   fence();
   leftVine();
-  //rightVine();
+  rightVine();
 }
 
 void leftVine() {
@@ -25,8 +25,8 @@ void leftVine() {
   case 3:
     if (prev.posn.x+prev.vineWidth>80) {
       prev.posn.x = 0-prev.vineWidth;
-      pastStairs = true;
-    } else if (prev.posn.x+prev.vineWidth>40&& pastStairs) {
+      pastStairsL = true;
+    } else if (prev.posn.x+prev.vineWidth>40&& pastStairsL) {
       //stage = 2;
     } else {
       addVine(new Posn(prev.posn.x+prev.vineWidth, prev.posn.y), orientation, vineWidth, vineHeight, true);
@@ -36,11 +36,11 @@ void leftVine() {
   case 4:
     if (prev.posn.x+prev.vineWidth>80) {
       prev.posn.x=(int)(0-.5*prev.vineWidth);
-      pastStairs = true;
-    } else if (prev.posn.x+prev.vineWidth>40 && pastStairs) {
+      pastStairsL = true;
+    } else if (prev.posn.x+prev.vineWidth>40 && pastStairsL) {
       //stage = 2;
     } else {
-      if (pastStairs) {
+      if (pastStairsL) {
         addVine(new Posn((int)(prev.posn.x+.5*prev.vineWidth), (int)(prev.posn.y-.5*prev.vineHeight)), orientation, vineWidth, vineHeight, true);
       } else {
         addVine(new Posn((int)(prev.posn.x+.5*prev.vineWidth), (int)(prev.posn.y+.5*prev.vineHeight)), orientation, vineWidth, vineHeight, true);
@@ -50,7 +50,7 @@ void leftVine() {
   }
   
   for (int i=0; i<leftVines.size(); i+=1) {
-    leftVines.get(i).display();
+    leftVines.get(i).display(true);
   }
 }
 
@@ -70,22 +70,23 @@ void rightVine() {
   switch (orientation) {
   case 1:
   case 3:
-    if (prev.posn.x+prev.vineWidth<45 && !pastStairs) {
-      pastStairs = true;
-    } else if (prev.posn.x+prev.vineWidth<35&& pastStairs) {
+    if (prev.posn.x+prev.vineWidth<45 && !pastStairsR) {
+      pastStairsR = true;
+    } /*else if (prev.posn.x+prev.vineWidth<35&& pastStairs) {
       //stage = 2;
-    } else {
+    }*/ else {
       addVine(new Posn(prev.posn.x-prev.vineWidth, prev.posn.y), orientation, vineWidth, vineHeight, false);
     }
     break;
   case 2:
   case 4:
-    if (prev.posn.x+prev.vineWidth<45 && !pastStairs) {
-      pastStairs = true;
-    } else if (prev.posn.x+prev.vineWidth<35 && pastStairs) {
+    if (prev.posn.x+prev.vineWidth<45 && !pastStairsR) {
+      pastStairsR = true;
+    } /*else if (prev.posn.x+prev.vineWidth<35 && pastStairs) {
       //stage = 2;
-    } else {
-      if (pastStairs) {
+    }*/ else {
+      if (pastStairsR) {
+        vineHeight = (int) random(8,12);
         addVine(new Posn((int)(prev.posn.x-.5*prev.vineWidth), (int)(prev.posn.y-.5*prev.vineHeight)), orientation, vineWidth, vineHeight, false);
       } else {
         addVine(new Posn((int)(prev.posn.x-.5*prev.vineWidth), (int)(prev.posn.y+.5*prev.vineHeight)), orientation, vineWidth, vineHeight, false);
@@ -95,16 +96,18 @@ void rightVine() {
   }
   
   for (int i=0; i<rightVines.size(); i+=1) {
-    rightVines.get(i).display();
+    rightVines.get(i).display(false);
   }
 }
 
 void fence() {
-  fill(255);
+ // fill(219);
+ fill(215,219,164);
+ //fill(103,73,11);
   noStroke();
-  rect(0, 9, 50, 1);
-  rect(0, 16, 50, 1);
-  for (int i=0; i<42; i+=2) {
+  rect(0, 9, 50, 2);
+  rect(0, 16, 50, 2);
+  for (int i=0; i<42; i+=4) {
     rect(i, 6, 1, 23);
   }
 }

@@ -11,9 +11,16 @@ class VineSegment {
     this.vineHeight = h;
   }
   
-  void display() {
+  void display(boolean left) {
     noFill();
-    stroke(69, 142, 21);
+    if (left) {
+      //stroke(101,245,0);
+      stroke(0,144,18);
+    } else {
+      //stroke(5,121,0);
+      stroke(86,160,34);
+    }
+    //stroke(101,245,0);
     switch (this.orientation) {
       // cave facing down
       case 1:

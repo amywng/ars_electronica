@@ -17,17 +17,17 @@ void createPerson(int walk) {
 }
 
 void head() {
-  head = createShape(RECT, 0, 0, 1, 1);
+  head = createShape(RECT, 0, -1, 1, 1);
   head.setStroke(false);
 }
 
 void body() {
-  body = createShape(RECT, 0, 1, 1, 2);
+  body = createShape(RECT, 0, 0, 1, 3);
   body.setStroke(false);
 }
 
 void arms() {
-  arms = createShape(RECT, -1, 1, 3, 1);
+  arms = createShape(RECT, -1, 0, 3, 1);
   arms.setStroke(false);
 }
 

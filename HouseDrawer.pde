@@ -1,4 +1,4 @@
-
+s
 class HouseDrawer {
   AECPlugin aec;
   int size = 10;  

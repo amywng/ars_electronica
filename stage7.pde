@@ -1,51 +1,23 @@
-PShape person;
-PShape head, body, arms, legR, legL;
+PShape topBubble;
+PShape bottomBubble;
 
-void createPerson(int walk) {
-  person = createShape(GROUP);
 
-  head();
-  body();
-  arms();
-  legs(walk);
+void createBubbles() {
+  // Create top bubble shape
+  topBubble = createShape(GROUP);
+  PShape topRect1 = createShape(RECT, 20, 20, 120, 60);
+  PShape topRect2 = createShape(RECT, 30, 80, 20, 10);
+  PShape topRect3 = createShape(RECT, 20, 90, 10, 10);
+  topBubble.addChild(topRect1);
+  topBubble.addChild(topRect2);
+  topBubble.addChild(topRect3);
   
-  person.addChild(head);
-  person.addChild(body);
-  person.addChild(arms);
-  person.addChild(legR);
-  person.addChild(legL);
-}
-
-void head() {
-  head = createShape(RECT, 0, -1, 1, 1);
-  head.setStroke(false);
-}
-
-void body() {
-  body = createShape(RECT, 0, 0, 1, 3);
-  body.setStroke(false);
-}
-
-void arms() {
-  arms = createShape(RECT, -1, 0, 3, 1);
-  arms.setStroke(false);
-}
-
-void legs(int walk) {
-  switch (walk) {
-  case 1:
-    legR = createShape(RECT, 1, 3, 1, 1);
-    legL = createShape(RECT, -1, 3, 1, 1);
-    break;
-  case 2:
-    legR = createShape(RECT, 0, 3, 1, 1);
-    legL = createShape(RECT, -1, 3, 1, 1);
-    break;
-  case 3:
-    legR = createShape(RECT, 2, 3, 1, 1);
-    legL = createShape(RECT, 0, 3, 1, 1);
-    break;
-  }
-  legR.setStroke(false);
-  legL.setStroke(false);
+  // Create bottom bubble shape
+  bottomBubble = createShape(GROUP);
+  PShape bottomRect1 = createShape(RECT, 60, 100, 120, 60);
+  PShape bottomRect2 = createShape(RECT, 150, 160, 20, 10);
+  PShape bottomRect3 = createShape(RECT, 170, 170, 10, 10);
+  bottomBubble.addChild(bottomRect1);
+  bottomBubble.addChild(bottomRect2);
+  bottomBubble.addChild(bottomRect3);
 }

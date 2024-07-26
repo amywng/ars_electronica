@@ -1,10 +1,13 @@
 ArrayList<VineSegment> leftVines = new ArrayList<>();
 ArrayList<VineSegment> rightVines = new ArrayList<>();
+boolean pastStairsR = false;
+boolean pastStairsL = false;
 
-void stage1Vines() {
+void stage1() {
+  ground();
+  rightVine();
   fence();
   leftVine();
-  rightVine();
 }
 
 void leftVine() {
@@ -13,11 +16,14 @@ void leftVine() {
   }
   VineSegment prev = leftVines.get(leftVines.size()-1);
   
-  int vineWidth = (int) random(2, 5);
-  int vineHeight = (int) random(4, 8);
+  int vineWidth = (int) random(2, 6);
+  int vineHeight = (int) random(3, 5);
   int orientation = (int) random(1, 5);
   while (orientation==prev.orientation) {
     orientation = (int) random(1, 5);
+  }
+  if (prev.posn.x+prev.vineWidth>30 && pastStairsL) {
+    orientation = (int)random(1,3)*2;
   }
   
   switch (orientation) {
@@ -26,7 +32,7 @@ void leftVine() {
     if (prev.posn.x+prev.vineWidth>80) {
       prev.posn.x = 0-prev.vineWidth;
       pastStairsL = true;
-    } else if (prev.posn.x+prev.vineWidth>40&& pastStairsL) {
+    } else if (prev.posn.y-prev.vineHeight<0) {
       //stage = 2;
     } else {
       addVine(new Posn(prev.posn.x+prev.vineWidth, prev.posn.y), orientation, vineWidth, vineHeight, true);
@@ -37,8 +43,6 @@ void leftVine() {
     if (prev.posn.x+prev.vineWidth>80) {
       prev.posn.x=(int)(0-.5*prev.vineWidth);
       pastStairsL = true;
-    } else if (prev.posn.x+prev.vineWidth>40 && pastStairsL) {
-      //stage = 2;
     } else {
       if (pastStairsL) {
         addVine(new Posn((int)(prev.posn.x+.5*prev.vineWidth), (int)(prev.posn.y-.5*prev.vineHeight)), orientation, vineWidth, vineHeight, true);
@@ -56,17 +60,19 @@ void leftVine() {
 
 void rightVine() {
   if (rightVines.size()==0) {
-    addVine(new Posn(52,20), 3,5,3, false);
+    addVine(new Posn(54,20), 3,5,3, false);
   }
   VineSegment prev = rightVines.get(rightVines.size()-1);
   
-  int vineWidth = (int) random(2, 5);
+  int vineWidth = (int) random(1, 3);
   int vineHeight = (int) random(4, 8);
   int orientation = (int) random(1, 5);
   while (orientation==prev.orientation) {
     orientation = (int) random(1, 5);
   }
-  
+  if (prev.posn.x+prev.vineWidth<43 && pastStairsR) {
+    orientation = (int)random(1,3)*2;
+  }
   switch (orientation) {
   case 1:
   case 3:
@@ -74,7 +80,7 @@ void rightVine() {
       pastStairsR = true;
     } /*else if (prev.posn.x+prev.vineWidth<35&& pastStairs) {
       //stage = 2;
-    }*/ else {
+    } */else {
       addVine(new Posn(prev.posn.x-prev.vineWidth, prev.posn.y), orientation, vineWidth, vineHeight, false);
     }
     break;
@@ -87,6 +93,7 @@ void rightVine() {
     }*/ else {
       if (pastStairsR) {
         vineHeight = (int) random(8,12);
+        //vineWidth = (int) random(1,2);
         addVine(new Posn((int)(prev.posn.x-.5*prev.vineWidth), (int)(prev.posn.y-.5*prev.vineHeight)), orientation, vineWidth, vineHeight, false);
       } else {
         addVine(new Posn((int)(prev.posn.x-.5*prev.vineWidth), (int)(prev.posn.y+.5*prev.vineHeight)), orientation, vineWidth, vineHeight, false);
@@ -101,15 +108,20 @@ void rightVine() {
 }
 
 void fence() {
- // fill(219);
- fill(215,219,164);
- //fill(103,73,11);
   noStroke();
-  rect(0, 9, 50, 2);
-  rect(0, 16, 50, 2);
+  fill(215,219,164);
+  rect(0, 9, 45, 2);
+  rect(0, 16, 45, 2);
   for (int i=0; i<42; i+=4) {
     rect(i, 6, 1, 23);
   }
+}
+
+void ground() {
+  noStroke();
+  // brown
+  fill(95,61,16);
+  rect(0, 23, 40,5);
 }
 
 void addVine(Posn startPos, int orientation, int w, int h, boolean left) {
